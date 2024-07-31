@@ -1,0 +1,58 @@
+import React, {useState} from 'react';
+import  "./App.css";
+
+
+function App () {
+  let [name, setName] = useState("");
+  let [dept, setDept] = useState("");
+  let [school, setSchool] = useState("");
+  let [allStudents, setAllStudents] = useState([]);
+  const addStudent = () => {
+    let newStudent = {name, dept, school};
+    setAllStudents([...allStudents, newStudent]);
+    setName("");
+    setDept("");
+    setSchool("");
+   // console.log(name, "name");
+    //console.log(dept, "department");
+    //console.log(school, "school");
+  }
+    const deleteStudent=index=>{
+      let filteredStudents = allStudents.filter((_, i)=>i !==index);
+      setAllStudents(filteredStudents);
+
+  }
+  return (
+    <div>
+          <input onChange={e=>setName(e.target.value)} placeholder="name"/>
+          <input onChange={e=>setDept(e.target.value)} placeholder="dept"/>
+          <input onChange={e=>setSchool(e.target.vaalue)} placeholder="school"/>
+          <button onClick={addStudent}> add student</button>
+        {allStudents.length > 0? <table>
+            <thead>
+                <tr>
+                  <th>S/N</th>
+                  <th>Name</th>
+                  <th>Dept</th>
+                  <th>school</th>
+                  <th>delete</th>
+                </tr>
+            </thead>
+            <tbody>
+              {allStudents.map((student, i)=>(
+                <tr key={i}>
+                  <td>{i+1}</td>
+                  <td>{student.name}</td>
+                  <td>{student.dept}</td>
+                  <td>{student.school}</td>
+                  <td><button onClick={()=>deleteStudent}>delete</button></td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+        : <div>No student yet </div>}
+
+       </div> 
+  );
+}
+export default App;
